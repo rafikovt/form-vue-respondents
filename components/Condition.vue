@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <div>
+  <div class="condition">
+    <div class="condition-row">
+      <span class="condition-title" v-text="`Условие ${id}`"/>
       <Select :options-list="options" @change="onChange"/>
     </div>
-    <div v-if="additionalParams && additionalParams.length">
+    <div class="condition-row" v-if="additionalParams && additionalParams.length">
       <Select @change="addAnswer" v-for="i in count" :key="i" :options-list="additionalParams"/>
     </div>
-    <div v-else>
+    <div class="condition-row" v-else>
       <Input v-for="i in count" :key="i" :id="i" @change="addAnswer"/>
     </div>
-    <button @click.prevent="add">Добавить</button>
+    <button class="btn" @click.prevent="add">Добавить</button>
   </div>
 
 </template>
@@ -23,6 +24,15 @@ export default {
     Select,
     Input,
   },
+
+  props: {
+    id: {
+      type: Number,
+      required: true,
+      default: 1,
+    }
+  },
+
   data() {
     return {
       options: this.$store.state.optionsList,
@@ -77,3 +87,22 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.condition {
+  padding: 2rem 3rem;
+  border-bottom: .1rem solid gray;
+  background-color: #fcf0cf;
+  color: #bfa154;
+
+  &-title {
+    font-size: 1.6rem;
+  }
+
+  &-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+</style>

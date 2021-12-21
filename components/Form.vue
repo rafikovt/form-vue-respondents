@@ -1,7 +1,7 @@
 <template>
   <div>
-    <condition v-for="i in count" :key="i" @addQuestion="onQuestionAdd"/>
-    <button @click.prevent="count++">Добавить вопрос</button>
+    <condition v-for="i in count" :key="i" :id="i" @addQuestion="onQuestionAdd"/>
+    <button class="btn-new" @click.prevent="count++">Добавить вопрос</button>
   </div>
 
 
@@ -30,3 +30,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.btn-new {
+  width: 100%;
+  padding: 5rem 0;
+  cursor: pointer;
+  background: #fff;
+  border-radius: .5rem;
+  color: #05a332;
+  border: .1rem solid gray;
+
+  &:hover {
+    color: #32e559;
+    border-color: #32e559;
+  }
+}
+</style>
