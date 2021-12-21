@@ -1,6 +1,6 @@
 <template>
   <div>
-    <condition v-for="i in count" :key="i" :id="i" @addQuestion="onQuestionAdd"/>
+    <condition class="condition-form" v-for="i in count" :key="i" :id="i" @addQuestion="onQuestionAdd"/>
     <button class="btn-new" @click.prevent="count++">Добавить вопрос</button>
   </div>
 
@@ -44,6 +44,18 @@ export default {
   &:hover {
     color: #32e559;
     border-color: #32e559;
+  }
+}
+
+.condition {
+  &-form {
+    &:nth-child(2n) {
+      background-color: #E1F5FE;
+    }
+
+    &:nth-child(3n) {
+      background-color: #E8F5E9;
+    }
   }
 }
 </style>

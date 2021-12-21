@@ -1,16 +1,16 @@
 <template>
   <div class="condition">
-    <div class="condition-row">
+    <div class="condition-row condition-row__title">
       <span class="condition-title" v-text="`Условие ${id}`"/>
       <Select :options-list="options" @change="onChange"/>
     </div>
-    <div class="condition-row" v-if="additionalParams && additionalParams.length">
+    <div class="condition-row condition-row__main" v-if="additionalParams && additionalParams.length">
       <Select @change="addAnswer" v-for="i in count" :key="i" :options-list="additionalParams"/>
     </div>
-    <div class="condition-row" v-else>
+    <div class="condition-row__main" v-else>
       <Input v-for="i in count" :key="i" :id="i" @change="addAnswer"/>
     </div>
-    <button class="btn" @click.prevent="add">Добавить</button>
+    <button v-show="questionData.question" class="btn" @click.prevent="add">{{titleBtn}}</button>
   </div>
 
 </template>
@@ -42,7 +42,7 @@ export default {
       from: '',
       error: false,
       questionData: {
-        question: this.$store.state.optionsList[0].value,
+        question: '',
         answers: [],
       }
     }
@@ -84,6 +84,17 @@ export default {
       }
       return false;
     },
+
+    titleBtn() {
+      switch(this.questionData.question) {
+        case 'Возраст респондента':
+          return 'Добавить диапазон';
+        case 'Тип карты лояльности':
+          return 'Добавить тип';
+        case 'Статус карты лояльности':
+          return 'Добавить статус';
+      }
+    }
   }
 }
 </script>
@@ -96,13 +107,22 @@ export default {
   color: #bfa154;
 
   &-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 
   &-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
+    &__title {
+      margin-bottom: 3rem;
+    }
+
+    &__main {
+      flex-direction: column;
+      font-size: 1.6rem;
+      color: #000;
+    }
   }
 }
 </style>
