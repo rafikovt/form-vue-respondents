@@ -1,17 +1,23 @@
 <template>
   <div class="select-container">
-      <div class="option-selected" :class="{open: isOpened}" @click.prevent="toggle">
+      <div
+        class="option-selected"
+        :class="{open: isOpened}"
+        @click.prevent="toggle"
+      >
         <span class="option-title" v-text="selectedValue ? selectedValue : 'Выберите условие'"/>
         <svg-icon class="icon"  name="arrow"/>
       </div>
       <div class="options-container" :class="{open: isOpened}">
-        <div class="option"  v-for="option in optionsList" :key="option.id" :id="option.id" v-text="option.value" @click.prevent="onChange"/>
+        <div
+          class="option"
+          v-for="option in optionsList"
+          :key="option.id"
+          :id="option.id"
+          v-text="option.value"
+          @click.prevent="onChange"
+        />
       </div>
-
-<!--    <select @change="onSelectChange">-->
-<!--      <option disabled>Выберите условие</option>-->
-<!--      <option v-for="option in optionsList" :key="option.id" :value="option.id">{{ option.value }}</option>-->
-<!--    </select>-->
   </div>
 </template>
 
@@ -40,7 +46,6 @@ export default {
     onChange(evt) {
       this.isOpened = false;
       this.selectedValue = evt.target.textContent;
-      console.log(evt.target.id)
       this.$emit('change', evt.target.id)
     }
   }

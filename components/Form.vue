@@ -1,8 +1,20 @@
 <template>
-  <form class="condition-form">
-    <condition class="condition-form" v-for="(i, index) in conditions" :key="i" :id="i" :num="index+1" @addQuestion="onQuestionAdd" @onDeleteCondition="deleteCondition"/>
-    <button class="btn-new" @click.prevent="addCondition">Нажмите чтобы добавить условие выборки. Все условия связываются логическими "И"</button>
-  </form>
+  <div>
+    <form class="condition-form">
+      <condition
+        class="condition-form"
+        v-for="(i, index) in conditions"
+        :key="i"
+        :id="i"
+        :num="index+1"
+        @addQuestion="onQuestionAdd"
+        @onDeleteCondition="deleteCondition"
+      />
+      <button class="btn-new" @click.prevent="addCondition">Нажмите чтобы добавить условие выборки. Все условия связываются логическими "И"</button>
+    </form>
+    <button class="btn" v-if="conditions.length" @click.prevent="createSurvey">Создать опрос</button>
+  </div>
+
 
 
 </template>
@@ -34,6 +46,10 @@ export default {
     },
     deleteCondition(id) {
       this.conditions = this.conditions.filter(e => e !== id)
+    },
+    createSurvey() {
+      this.$store.dispatch('setQuestionsData', this.questionsData);
+      this.$router.push('/survey')
     }
   }
 }
@@ -43,6 +59,7 @@ export default {
 .btn-new {
   width: 100%;
   padding: 5rem 0;
+  margin-bottom: 3rem;
   cursor: pointer;
   background: #fff;
   border-radius: .5rem;

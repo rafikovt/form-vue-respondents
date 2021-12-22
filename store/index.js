@@ -1,4 +1,4 @@
-const sleep = m => new Promise(r => setTimeout(r, m))
+
 const optionsList = [
   {
     id: 1,
@@ -86,19 +86,18 @@ export const state = () => ({
     },
   ],
 
-  selectedCategories: [],
+  questionsData: [],
 })
 export const mutations = {
-  SET_CATEGORIES (state, category) {
-    state.selectedCategories.push(category);
-  },
+  SET_QUESTIONS_DATA(state, payload) {
+    state.questionsData = payload;
+  }
 }
 
 export const actions = {
-  async getCategoriesList ({ commit }) {
+  setQuestionsData (context, data) {
     try {
-      await sleep(1000)
-      await commit('SET_CATEGORIES', categories)
+      context.commit('SET_QUESTIONS_DATA', data)
     } catch (err) {
       console.log(err)
       throw new Error('Внутреняя ошибка сервера, сообщите администратору')
