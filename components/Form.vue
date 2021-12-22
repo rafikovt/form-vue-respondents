@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <condition class="condition-form" v-for="i in count" :key="i" :id="i" @addQuestion="onQuestionAdd"/>
-    <button class="btn-new" @click.prevent="count++">Добавить вопрос</button>
-  </div>
+  <form class="condition-form">
+    <condition class="condition-form" v-for="(i, index) in conditions" :key="i" :id="i" :num="index+1" @addQuestion="onQuestionAdd" @onDeleteCondition="deleteCondition"/>
+    <button class="btn-new" @click.prevent="addCondition">Нажмите чтобы добавить условие выборки. Все условия связываются логическими "И"</button>
+  </form>
 
 
 </template>
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       count: 0,
+      conditions: [],
       questionsData: []
     }
   },
@@ -26,6 +27,13 @@ export default {
     onQuestionAdd(evt) {
       this.questionsData = this.questionsData.filter(e => e.question !== evt.question)
       this.questionsData.push(evt);
+    },
+    addCondition() {
+      this.count++;
+      this.conditions.push(this.count);
+    },
+    deleteCondition(id) {
+      this.conditions = this.conditions.filter(e => e !== id)
     }
   }
 }

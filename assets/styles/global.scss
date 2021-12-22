@@ -17,8 +17,8 @@ body {
   padding: 1rem 2rem;
   background-color: #fff;
   border-radius: .5rem;
-  border: .1rem solid #ADFF2F;
-  color: #ADFF2F;
+  border: .1rem solid #A5D6A7;
+  color: #A5D6A7;
   cursor: pointer;
 
   &-add {
@@ -26,6 +26,7 @@ body {
   }
 
   &-delete {
-    border-color: #f71919;
+    border-color: #FF3D00;
+    color: #FF3D00;
   }
 }

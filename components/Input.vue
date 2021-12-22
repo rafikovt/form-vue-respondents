@@ -44,6 +44,8 @@ export default {
 <style lang="scss" scoped>
 .input {
   &-container {
+    display: grid;
+    grid-template-columns: 25% 75%;
     margin-bottom: 2rem;
   }
 }

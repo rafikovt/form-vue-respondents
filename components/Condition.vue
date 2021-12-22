@@ -1,7 +1,7 @@
 <template>
   <div class="condition">
     <div class="condition-row condition-row__title">
-      <span class="condition-title" v-text="`Условие ${id}`"/>
+      <span class="condition-title" v-text="`Условие ${num}`"/>
       <Select :options-list="options" @change="onChange"/>
     </div>
     <div class="condition-row condition-row__main" v-if="additionalParams && additionalParams.length">
@@ -10,7 +10,11 @@
     <div class="condition-row__main" v-else>
       <Input v-for="i in count" :key="i" :id="i" @change="addAnswer"/>
     </div>
-    <button v-show="questionData.question" class="btn" @click.prevent="add">{{titleBtn}}</button>
+    <div class="condition-row">
+      <button v-show="questionData.question" class="btn" @click.prevent="add" v-text="titleBtn"/>
+      <button class="btn btn-delete" @click.prevent="deleteCondition">Удалить условие</button>
+    </div>
+
   </div>
 
 </template>
@@ -30,6 +34,10 @@ export default {
       type: Number,
       required: true,
       default: 1,
+    },
+    num: {
+      type: Number,
+      required: false,
     }
   },
 
@@ -73,7 +81,11 @@ export default {
       }
 
       this.$emit('addQuestion', this.questionData)
-    }
+    },
+
+    deleteCondition() {
+      this.$emit('onDeleteCondition', this.id)
+    },
   },
 
   computed: {
@@ -101,18 +113,35 @@ export default {
 
 <style lang="scss" scoped>
 .condition {
+  position: relative;
   padding: 2rem 3rem;
   border-bottom: .1rem solid gray;
   background-color: #fcf0cf;
   color: #bfa154;
+
+  &:not(:first-child) {
+    &::before {
+      content: 'И';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      position: absolute;
+      top: -1.5rem;
+      width: 3rem;
+      height: 3rem;
+      border: .1rem solid grey;
+      background-color: #E8F5E9;
+    }
+  }
 
   &-title {
     font-size: 1.8rem;
   }
 
   &-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 25% 75%;
 
     &__title {
       margin-bottom: 3rem;
@@ -124,5 +153,10 @@ export default {
       color: #000;
     }
   }
+}
+
+.btn-delete {
+  grid-column: 2;
+  justify-self: end;
 }
 </style>
