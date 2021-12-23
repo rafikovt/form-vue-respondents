@@ -4,11 +4,22 @@
     <div>
       <label>
         <span>От</span>
-        <input class="condition-input" @change="onChange" v-model="from" type="text">
+        <input
+          class="condition-input"
+          @change="onChange"
+          v-model="from"
+          type="text"
+          v-digitsonly>
       </label>
       <label>
         <span>От</span>
-        <input class="condition-input" @change="onChange" v-model="to" type="text">
+        <input
+          class="condition-input"
+          @change="onChange"
+          v-model="to"
+          type="text"
+          v-digitsonly
+        >
       </label>
     </div>
   </div>
@@ -16,6 +27,7 @@
 </template>
 
 <script>
+import {JustDigits} from './common/filters';
 export default {
   name: 'Input',
   props: {
@@ -37,6 +49,10 @@ export default {
     onChange() {
         this.$emit('change', {from: this.from, to: this.to})
     }
+  },
+
+  mounted() {
+    JustDigits();
   }
 }
 </script>

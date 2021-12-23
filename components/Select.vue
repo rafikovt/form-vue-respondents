@@ -1,5 +1,5 @@
 <template>
-  <div class="select-container">
+  <div class="select-container" v-click-outside="closeSelect">
       <div
         class="option-selected"
         :class="{open: isOpened}"
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-
+import vClickOutside from 'v-click-outside'
 export default {
   name: 'Select',
   props: {
@@ -47,8 +47,15 @@ export default {
       this.isOpened = false;
       this.selectedValue = evt.target.textContent;
       this.$emit('change', evt.target.id)
+    },
+    closeSelect() {
+      this.isOpened = false;
     }
-  }
+  },
+
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
 }
 </script>
 
